@@ -1,0 +1,22 @@
+{
+  "name": "pwa-wallet",
+  "version": "1.0.0",
+  "description": "Wallet for Educational Purposes",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js",
+    "genkeys": "web-push generate-vapid-keys"
+  },
+  "author": "Roberto DS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertods/pwa-wallet.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
