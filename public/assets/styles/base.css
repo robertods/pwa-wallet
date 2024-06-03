@@ -1,0 +1,101 @@
+.itx-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+}
+.itx-container h1 {
+  text-align: center;
+  padding: 16px;
+}
+.itx-footer {
+  text-align: center;
+  padding: 16px;
+  color: gray;
+}
+
+.itx-floating {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.4);
+}
+
+.itx-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+.itx-list-item :nth-child(2) {
+  flex: 1;
+  padding-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.itx-list-item :nth-child(3) {
+  padding-left: 8px;
+  color: gray;
+}
+
+.itx-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  color: white;
+}
+.itx-color-1 {
+  background: var(--color-1);
+}
+.itx-color-2 {
+  background: var(--color-2);
+}
+.itx-color-3 {
+  background: var(--color-3);
+}
+.itx-color-4 {
+  background: var(--color-4);
+}
+.itx-color-5 {
+  background: var(--color-5);
+}
+.itx-color-6 {
+  background: var(--color-6);
+}
+.itx-color-7 {
+  background: var(--color-7);
+}
+.itx-color-8 {
+  background: var(--color-8);
+}
+.itx-color-9 {
+  background: var(--color-9);
+}
+.itx-color-10 {
+  background: var(--color-10);
+}
+
+.itx-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.itx-form > * {
+  padding: 16px;
+}
+
+.itx-form input {
+  padding: 16px;
+  width: 100%;
+  display: block;
+}
+
+.itx-link {
+  margin: 32px;
+  display: inline-block;
+}
