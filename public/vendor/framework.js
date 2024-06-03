@@ -54,7 +54,6 @@ export function navigate(href) {
 }
 
 export function useGlobalState(key) {
-
   function setState(newValue) {
     globalState[key] = newValue
     localStorage.setItem('__state__', JSON.stringify(globalState))

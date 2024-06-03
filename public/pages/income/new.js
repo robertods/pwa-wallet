@@ -1,21 +1,48 @@
-import { html, useEffect, useGlobalState } from '../../vendor/framework.js'
+import { html, useGlobalState, navigate } from '../../vendor/framework.js'
 import Layaout from '../../layouts/wallet-layout.js'
 
 export default function() {
 
-  const [notifications, setNotifications] = useGlobalState('notifications')
+  const [balance, setBalance] = useGlobalState('balance')
+  const [ categories ] = useGlobalState('categorias')
 
-  useEffect(() => {
-    console.log('hola home')
+  const saveIncome = e => {
+    e.preventDefault();
+    const { ingresos, saldo } = getState()
 
-    return () => {
-      console.log("adios home")
+    const formData = new FormData(e.target)
+
+    const newIncome = {
+      detail: formData.get('detail'),
+      amount: formData.get('amount'),
+      category: formData.get('category'),
     }
-  })
+  
+    setState({ 
+      ingresos: [ ...ingresos, newIncome ],
+      saldo: saldo + newIncome.value
+    });
+
+    e.target.reset();
+    navigate("/income");
+  }
 
   return Layaout(html`
-    <h1>Hello</h1>
-    <button @click=${e => setNotifications(notifications + 1)}>add</button>
+    <form @submit=${saveIncome} class="itx-form">
+      <label>
+        Detalle:
+        <input type="text" name="detail" />
+      </label>
+      <label>
+        Monto:
+        <input type="number" name="amount" />
+      </label>
+      <label>
+        Categoria:
+        ${CategorySelector({ categories: categories.income })}
+      </label>
+      <button class="btn btn-primary">Agregar ingreso</button>
+    </form>
   `);
 
 }

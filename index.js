@@ -11,7 +11,7 @@ const app = express()
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/balance-categories', (req, res) => res.json([
+app.get('/expenses-categories', (req, res) => res.json([
   { title: 'Supermercado', icon: 'fa-cart-shopping', id: 1, color: '#d25a5a' },
   { title: 'Restaurantes', icon: 'fa-utensils', id: 2, color: '#4999cb' },
   { title: 'Impuestos', icon: 'fa-file-invoice-dollar', id: 3, color: '#69bf9e' },

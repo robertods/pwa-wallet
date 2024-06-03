@@ -7,13 +7,16 @@ import '../../vendor/lit-highchart.bundle.min.js'
 export default function() {
 
   const [balance] = useGlobalState('balance')
+  const [income] = useGlobalState('income')
+
+  const total = income.reduce((t,i) => t + i.value, 0)
 
   const chartOptions = {
     chart: {
-      height: 200
+      height: 300
     },
     title: {
-      text: '$',
+      text: `$ ${total}`,
       align: 'center',
       verticalAlign: 'middle'
     },
@@ -28,7 +31,7 @@ export default function() {
     },
     series: [{
       type: 'pie',
-      innerSize: '50%',
+      innerSize: '70%',
       data: []
     }],
     credits: false

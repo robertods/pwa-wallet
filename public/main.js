@@ -3,7 +3,7 @@ import { getCategories } from './services/categories.js'
 import createApp from './vendor/framework.js'
 
 createApp({
-  defaultView: '/balance',
+  defaultView: '/expenses',
   initialState: {
     user: 'Roberto',
     balance: 0,

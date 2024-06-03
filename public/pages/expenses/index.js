@@ -7,13 +7,16 @@ import '../../vendor/lit-highchart.bundle.min.js'
 export default function() {
 
   const [balance] = useGlobalState('balance')
+  const [expenses] = useGlobalState('expenses')
+
+  const total = expenses.reduce((t,e) => t + e.value, 0)
 
   const chartOptions = {
     chart: {
-      height: 200
+      height: 300
     },
     title: {
-      text: '$',
+      text: `$ ${total}`,
       align: 'center',
       verticalAlign: 'middle'
     },
@@ -28,7 +31,7 @@ export default function() {
     },
     series: [{
       type: 'pie',
-      innerSize: '50%',
+      innerSize: '70%',
       data: []
     }],
     credits: false
@@ -39,7 +42,7 @@ export default function() {
     <h1>$ ${balance}</h1>
     <div class="position-relative">
       <highcharts-chart .options=${chartOptions}></highcharts-chart>
-      <button type="button" class="btn btn-info itx-floating" @click=${e => navigate('/balance/new')}>
+      <button type="button" class="btn btn-info itx-floating" @click=${e => navigate('/expenses/new')}>
         <i class="fa-solid fa-plus"></i>
       </button>
     </div>
