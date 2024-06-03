@@ -1,15 +1,14 @@
-import { html, useGlobalState, navigate } from '../../vendor/framework.js'
-import Layaout from '../../layouts/wallet-layout.js'
+import { html, getGlobalState, navigate } from '../../vendor/framework.js'
+import Layout from '../../layouts/wallet-layout.js'
 import PageSelector from '../../components/PageSelector.js'
 import OperationList from '../../components/OperationList.js'
 import '../../vendor/lit-highchart.bundle.min.js'
 
 export default function() {
 
-  const [balance] = useGlobalState('balance')
-  const [expenses] = useGlobalState('expenses')
+  const { balance, expenses } = getGlobalState()
 
-  const total = expenses.reduce((t,e) => t + e.value, 0)
+  const total = expenses.reduce((t,exp) => t + exp.amount, 0)
 
   const chartOptions = {
     chart: {
@@ -37,7 +36,7 @@ export default function() {
     credits: false
   }
 
-  return Layaout(html`
+  return Layout(html`
     ${PageSelector()}
     <h1>$ ${balance}</h1>
     <div class="position-relative">

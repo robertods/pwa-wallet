@@ -1,20 +1,24 @@
-import { html, ifDefined } from '../vendor/framework.js';
+import { html, ifDefined, useState } from '../vendor/framework.js';
 
-export default function CategorySelector({ categorias, value }) {
+export default function CategorySelector({ categories, value }) {
   
-  const isChecked = v => ifDefined( v == value ? 'checked' : undefined);
-  const getTitle = v => categorias.find(c=>c.id==v)?.title || "Ninguna";
-  const updateTitle = e => document.getElementById('title-categoria').textContent = getTitle(e.target.value);
+  const getTitle = v => categories.find(c => c.id == v)?.title || "Ninguna";
 
+  const [selected, setSelected] = useState(value)
+  const isChecked = v => ifDefined( v == selected ? 'checked' : undefined);
+  const updateTitle = e => setSelected(e.target.value);
+  
   return html`
-    <strong id="title-categoria">${getTitle(value)}</strong><br>
+    <strong class="titleCategory">${getTitle(selected)}</strong><br>
     <div class="btn-group" role="group">
-      ${categorias.map(c => html`
-        <input type="radio" class="btn-check" name="categoria" id="category-${c.id}" autocomplete="off" value=${c.id} .checked=${isChecked(c.id)} @click=${updateTitle}>
-        <label class="btn btn-outline-primary" for="category-${c.id}">
-          <i class="fa-solid ${c.icon} itx-icon itx-color-${c.id}"></i>
+      ${categories.map(({ id, icon }) => {
+        console.log(selected, id, id == selected ? 'checked' : undefined)
+        return html`
+        <label class="btn btn-outline-primary">
+          <input type="radio" class="btn-check" name="category" autocomplete="off" value=${id} .checked=${isChecked(id)} @click=${updateTitle} />
+          <i class="fa-solid ${icon} itx-icon itx-color-${id}"></i>
         </label>
-      `)}
+      `})}
     </div>
   `;
 }

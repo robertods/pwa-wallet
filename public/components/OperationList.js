@@ -1,4 +1,4 @@
-import { html, useGlobalState } from '../vendor/framework.js';
+import { html, getGlobalState } from '../vendor/framework.js';
 
 export default function(data) {
   const categorias = [];

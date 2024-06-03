@@ -1,33 +1,31 @@
-import { html, useGlobalState, navigate } from '../../vendor/framework.js'
-import Layaout from '../../layouts/wallet-layout.js'
+import { html, getGlobalState, setGlobalState, navigate } from '../../vendor/framework.js'
+import Layout from '../../layouts/wallet-layout.js'
+import CategorySelector from '../../components/CategorySelector.js'
 
 export default function() {
 
-  const [balance, setBalance] = useGlobalState('balance')
-  const [ categories ] = useGlobalState('categorias')
+  const { balance, income, categories } = getGlobalState()
 
   const saveIncome = e => {
     e.preventDefault();
-    const { ingresos, saldo } = getState()
-
     const formData = new FormData(e.target)
 
     const newIncome = {
       detail: formData.get('detail'),
-      amount: formData.get('amount'),
+      amount: Number(formData.get('amount')),
       category: formData.get('category'),
     }
   
-    setState({ 
-      ingresos: [ ...ingresos, newIncome ],
-      saldo: saldo + newIncome.value
+    setGlobalState({ 
+      income: [ ...income, newIncome ],
+      balance: balance + newIncome.amount
     });
 
     e.target.reset();
     navigate("/income");
   }
 
-  return Layaout(html`
+  return Layout(html`
     <form @submit=${saveIncome} class="itx-form">
       <label>
         Detalle:
