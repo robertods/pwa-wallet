@@ -1,13 +1,15 @@
-import { html, getGlobalState, setGlobalState, navigate } from '../../vendor/framework.js'
+import { html, getGlobalState, setGlobalState, navigate, useState } from '../../vendor/framework.js'
 import Layout from '../../layouts/wallet-layout.js'
 import CategorySelector from '../../components/CategorySelector.js'
 
 export default function() {
 
   const { balance, income, categories } = getGlobalState()
+  const [ errorMsgs, setErrorMsgs ] = useState([])
 
   const saveIncome = e => {
     e.preventDefault();
+    const errors = []
     const formData = new FormData(e.target)
 
     const newIncome = {
@@ -15,14 +17,25 @@ export default function() {
       amount: Number(formData.get('amount')),
       category: formData.get('category'),
     }
-  
-    setGlobalState({ 
-      income: [ ...income, newIncome ],
-      balance: balance + newIncome.amount
-    });
 
-    e.target.reset();
-    navigate("/income");
+    if(newIncome.detail.length === 0){
+      errors.push("Detalle no puede quedar vacío")
+    }
+    if(typeof newIncome.amount !== "number"){
+      errors.push("El monto debe ser un número")
+    }
+  
+    if(errors.length === 0) {
+      setGlobalState({ 
+        income: [ ...income, newIncome ],
+        balance: balance + newIncome.amount
+      });
+      e.target.reset();
+      navigate("/income");
+    }
+    else {
+      setErrorMsgs(errors)
+    }
   }
 
   return Layout(html`
@@ -41,6 +54,7 @@ export default function() {
       </label>
       <button class="btn btn-primary">Agregar ingreso</button>
     </form>
+    ${errorMsgs.map(err => html`<p style="color:red">${err}</p>`)}
   `);
 
 }

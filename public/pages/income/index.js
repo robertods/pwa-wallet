@@ -6,10 +6,17 @@ import '../../vendor/lit-highchart.bundle.min.js'
 
 export default function() {
 
-  const { balance, income } = getGlobalState()
+  const { balance, income, categories } = getGlobalState()
 
   const total = income.reduce((t,inc) => t + inc.amount, 0)
-
+  const counters = categories.income.reduce((acc, obj) => ({ ...acc, [obj.id]: 0 }), {})
+  income.forEach( g => counters[g.category]++ )
+  const data = categories.income.reduce((a, obj) => [ ...a, { 
+    name: obj.title,
+    y: counters[obj.id], 
+    color: obj.color,
+  }], [])
+  
   const chartOptions = {
     chart: {
       height: 300
@@ -31,7 +38,7 @@ export default function() {
     series: [{
       type: 'pie',
       innerSize: '70%',
-      data: []
+      data
     }],
     credits: false
   }
@@ -45,7 +52,7 @@ export default function() {
         <i class="fa-solid fa-plus"></i>
       </button>
     </div>
-    ${OperationList([])}
+    ${OperationList(income)}
   `);
 
 }
